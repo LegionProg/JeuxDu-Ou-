@@ -6,14 +6,13 @@ using namespace std;
 int main()
 {
 	srand(time(NULL)); // retenir
-	int mystery_number = rand() % 101; // retenire
+	int mystery_number = rand() % 101; // retenir
 	int number;
 	cout << "bienvenue au jeux du nombre plus ou moins " << endl;
 
 
 	while (true)
 	{
-		cout << mystery_number;
 		cout << "choisit un nombre" << endl ;
 		cin >> number;
 		if (number == mystery_number)
