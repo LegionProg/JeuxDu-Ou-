@@ -69,13 +69,13 @@ void Play()
 				cout << "tu a fait " << i << "essai" << endl;
 				break;
 			}
-			else if (number < mystery_number - 10 && help == true)
+			else if (number < mystery_number - 10 && help == 0)
 			{
 
 				cout << "--->>>>>>>|---------" << endl;
 				//cout << "c'est beaucoup plus !!" << endl << endl;
 			}
-			else if (number < mystery_number - 5 && help == true)
+			else if (number < mystery_number - 5 && help == 0)
 			{
 
 				cout << "------>>>>|---------" << endl;
@@ -88,13 +88,13 @@ void Play()
 				//cout << "C'est un peu plus !!" << endl << endl;
 
 			}
-			else if (number > mystery_number + 10 && help == true)
+			else if (number > mystery_number + 10 && help == 0)
 			{
 
 				cout << "----------|<<<<<<<---" << endl;
 				//cout << "c'est beaucoup moins!!" << endl << endl;
 			}
-			else if (number > mystery_number + 5 && help == true)
+			else if (number > mystery_number + 5 && help == 0)
 			{
 				cout << "----------|<<<<------" << endl;
 				//cout << "c'est beaucoup moins!!" << endl << endl;
