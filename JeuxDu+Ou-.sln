@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37314.3 d17.14
+VisualStudioVersion = 17.14.37314.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JeuxDu+Ou-", "JeuxDu+Ou-\JeuxDu+Ou-.vcxproj", "{4C3227E1-F4E6-4025-870E-3F936D184534}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PFC", "PFC\PFC.vcxproj", "{B11915C9-C899-406B-9F9F-BCEE3A1514EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{4C3227E1-F4E6-4025-870E-3F936D184534}.Release|x64.Build.0 = Release|x64
 		{4C3227E1-F4E6-4025-870E-3F936D184534}.Release|x86.ActiveCfg = Release|Win32
 		{4C3227E1-F4E6-4025-870E-3F936D184534}.Release|x86.Build.0 = Release|Win32
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Debug|x64.ActiveCfg = Debug|x64
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Debug|x64.Build.0 = Debug|x64
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Debug|x86.ActiveCfg = Debug|Win32
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Debug|x86.Build.0 = Debug|Win32
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Release|x64.ActiveCfg = Release|x64
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Release|x64.Build.0 = Release|x64
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Release|x86.ActiveCfg = Release|Win32
+		{B11915C9-C899-406B-9F9F-BCEE3A1514EE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
