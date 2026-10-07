@@ -44,7 +44,7 @@ void Print_Choice(int choice)
 
 
 
-int PrintResult(int choice, int botChoice, int score[3])
+int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 {
 	// Proto ->
 	if (choice == botChoice)
@@ -130,12 +130,12 @@ int PrintResult(int choice, int botChoice, int score[3])
 		<< " | score Machine -> " << score[1]
 		<< " | manche nul -> " << score[2] << endl;
 
-	if (score[0] == 4)
+	if (score[0] == numberOfManche)
 	{
 		cout << "tu a gagner cette fois si " << endl;
 		return 0;
 	}
-	else if (score[1] == 4)
+	else if (score[1] == numberOfManche)
 	{
 		cout << "tu a perdu " << endl;
 		return 0;
@@ -167,12 +167,15 @@ void Play()
 	int choice;
 	int botChoice;
 	int result = 1;
+	int numberOfManche; // verifier l'hortographe
 	cout << ">Bienvenu dans le jeux du pierre feuille ciseau" << endl;
 
 	int score[3]{ 0 };
 	int tableIA[3]{ 0 };
 	int randomIA;
 
+	cout << "Choisissez le nombre de manche -> ";
+	numberOfManche = Choice(1, 10);
 	while (true)
 	{
 		randomIA = Random(100);
@@ -192,7 +195,7 @@ void Play()
 		Print_Choice(botChoice);
 
 
-		result = PrintResult(choice, botChoice, score);
+		result = PrintResult(choice, botChoice, score, numberOfManche);
 		if (result == 0)
 		{
 			break;
