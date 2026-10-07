@@ -78,6 +78,7 @@ void Play()
 		randomIA = Random(100);
 		if (randomIA <= 70)
 		{
+			cout << endl << "IA" << endl;
 			if (tableIA[0] > tableIA[1] && tableIA[0] > tableIA[2])
 				botChoice = 1;
 			else if (tableIA[1] > tableIA[2])
@@ -88,31 +89,22 @@ void Play()
 		else
 		{
 			botChoice = Random(3);
-			cout << "Machine joue -> ";
+			cout << endl << "RN" << endl;
 		}
+		
 		cout << "Machine joue -> ";
 		Print_Choice(botChoice);
 
 
-		// proto ->
+		// proto fonctionelle  ->
 		if (choice == botChoice)
 		{
 			cout << endl << "egaliter" << endl;
 			score[2] = score[2] + 1;
 		}
-		else if (choice - 1 == botChoice)
+		else if (choice == 0) // caillou
 		{
-			cout << endl << "Victoire " << endl;
-			score[0] = score[0] + 1;
-		}
-		else if (choice == botChoice + 1)
-		{
-			cout << endl << "perdu " << endl;
-			score[1] = score[1] + 1;
-		}
-		else if (choice == 0)
-		{
-			if (botChoice == 2)
+			if (botChoice == 1) // feuille
 			{
 				cout << endl << "perdu " << endl;
 				score[1] = score[1] + 1;
@@ -124,10 +116,24 @@ void Play()
 
 			}
 		}
+		else if (choice - 1 == botChoice)
+		{
+			cout << endl << "Victoire " << endl;
+			score[0] = score[0] + 1;
+		}
+		else if (choice == botChoice + 1)
+		{
+			cout << endl << "perdu " << endl;
+			score[1] = score[1] + 1;
+		}
+		
 		// <- proto
 
+
+
+
 		/*
-		* if (choice == botChoice)
+		if (choice == botChoice)
 		{
 			cout << endl << "egaliter" << endl;
 			score[2] = score[2] + 1;
