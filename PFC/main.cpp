@@ -127,8 +127,8 @@ int PrintResult(int choice, int botChoice, int score[3])
 
 
 	cout << endl << "Voici les score Humain -> " << score[0]
-		<< " score Machine -> " << score[1]
-		<< " manche nul -> " << score[2] << endl;
+		<< " | score Machine -> " << score[1]
+		<< " | manche nul -> " << score[2] << endl;
 
 	if (score[0] == 4)
 	{
@@ -175,8 +175,9 @@ void Play()
 
 	while (true)
 	{
-
-		cout << "Choisiser" << endl
+		randomIA = Random(100);
+		botChoice = IA(randomIA, tableIA);
+		cout << "Choisissez " << endl
 			<< "Pierre = 0" << endl
 			<< "Feuille = 1" << endl
 			<< "Ciseau = 2" << endl;
@@ -186,9 +187,6 @@ void Play()
 		Print_Choice(choice);
 
 		tableIA[choice] = tableIA[choice] + 1;
-
-		randomIA = Random(100);
-		botChoice = IA(randomIA, tableIA);
 
 		cout << "Machine joue -> ";
 		Print_Choice(botChoice);
