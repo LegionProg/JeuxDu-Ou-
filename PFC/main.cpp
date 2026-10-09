@@ -47,6 +47,8 @@ void Print_Choice(int choice)
 int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 {
 	// Proto ->
+
+	
 	if (choice == botChoice)
 	{
 		cout << endl << "egalite" << endl;
