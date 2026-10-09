@@ -8,7 +8,7 @@ int Choice(int min, int max)
 		std::cin >> choice;
 		if (choice >= min && choice <= max)
 			break;
-		std::cout << "Vous avez mal saisie recomancer et cette fois si correctement !!!" << std::endl;
+		std::cout << "Vous avez mal saisie recommencer et cette fois si correctement !!!" << std::endl;
 	}
 
 
@@ -23,6 +23,7 @@ int Generator(int max)
 
 void Morpion()
 {
+	std::cout << "Bien venue au morpions" << std::endl;
 	int end = 0;
 	const int max_Table = 9;
 	char table[max_Table]{ ' ', ' ',' ',' ', ' ',' ', ' ', ' ',' ' };
@@ -54,6 +55,7 @@ void Morpion()
 			std::cout << "la place et deja occuper" << std::endl;
 		}
 
+		
 
 		// condition de victoire joueur
 		for (int i = 0; i <= 6; i = i + 3)
@@ -79,15 +81,7 @@ void Morpion()
 			std::cout << "Bien jouer Gagner !" << std::endl;
 			end = 1;
 		}
-		if (end != 0)
-		{
-			std::cout << "La parti et finis la relancer ? " << std::endl
-				<< "Oui = 0" << std::endl
-				<< "Non = 1" << std::endl;
-			end = Choice(0, 1);
-			if (end == 1)
-				break;
-		}
+		
 		while (true) // bot stupide (random)
 		{
 			choice = Generator(max_Table);
@@ -146,7 +140,104 @@ void Morpion()
 
 
 
+void PrintCell(int c)
+{
+	std::cout << "[";
+	if (c == -1)
+	{
+		std::cout << "X";
+	}
+	std::cout << "]";
+}
+
 int main()
 {
-	Morpion();
+	int c1 = 1;
+	int c2 = 1;
+	int c3 = 1;
+	int c4 = 1;
+	int c5 = 1;
+	int c6 = 1;
+	int c7 = 1;
+	int c8 = 1;
+	int c9 = 1;
+
+	while (true)
+	{
+		std::cout << "[" << ((c1 == -1) ? 'X' : c1) << "]";
+		std::cout << "[" << ((c2 == -1) ? 'X' : c2) << "]";
+		std::cout << "[" << ((c3 == -1) ? 'X' : c3) << "]" << std::endl;
+		std::cout << "[" << ((c4 == -1) ? 'X' : c4) << "]";
+		std::cout << "[" << ((c5 == -1) ? 'X' : c5) << "]";
+		std::cout << "[" << ((c6 == -1) ? 'X' : c6) << "]" << std::endl;
+		std::cout << "[" << ((c7 == -1) ? 'X' : c7) << "]";
+		std::cout << "[" << ((c8 == -1) ? 'X' : c8) << "]";
+		std::cout << "[" << ((c9 == -1) ? 'X' : c9) << "]" << std::endl;
+
+		std::cout << "Choisit une case" << std::endl;
+
+		PrintCell(c1);
+		PrintCell(c2);
+		PrintCell(c3);
+		std::cout << std::endl;
+		PrintCell(c4);
+		PrintCell(c5);
+		PrintCell(c6);
+		std::cout << std::endl;
+		PrintCell(c7);
+		PrintCell(c8);
+		PrintCell(c9);
+		
+		int choice = Choice(1, 9);
+		system("cls");
+		switch (choice == 1)
+		{
+			case 1:
+			{
+				c1 = -1;
+				break;
+		}
+			case 2:
+			{
+				c2 = -1;
+				break;
+		}
+			case 3:
+			{
+				c3= -1;
+				break;
+		}
+			case 4:
+			{
+				c4 = -1;
+				break;
+		}
+			case 5:
+			{
+				c5 = -1;
+				break;
+		}
+			case 6:
+			{
+				c6 = -1;
+				break;
+		}
+			case 7:
+			{
+				c7 = -1;
+				break;
+		}
+			case 8:
+			{
+				c8 = -1;
+				break;
+		}
+			case 9:
+			{
+				c9 = -1;
+				break;
+		}
+			
+		}
+	}
 }
