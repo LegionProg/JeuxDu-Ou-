@@ -11,7 +11,7 @@ int Choice(int min, int max)
 		cin >> choice;
 		if (choice >= min && choice <= max)
 			break;
-		cout << "saisit incorecte recommencer" << endl;
+		cout << "saisit incorrecte recommencer" << endl;
 	}
 
 
@@ -46,9 +46,7 @@ void Print_Choice(int choice)
 
 int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 {
-	// Proto ->
-
-	
+	// Proto ->	
 	if (choice == botChoice)
 	{
 		cout << endl << "egalite" << endl;
@@ -78,7 +76,6 @@ int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 		cout << endl << "perdu " << endl;
 		score[1] = score[1] + 1;
 	}	
-	
 	/// <- Proto
 
 	/*if (choice == botChoice)
