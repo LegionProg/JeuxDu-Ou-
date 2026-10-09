@@ -46,7 +46,7 @@ void Morpion()
 
 		while (true) // joueur qui joue
 		{
-			choice = Choice(1, 9)-1;
+			choice = Choice(1, 9) - 1;
 			if (table[choice] == ' ')
 			{
 				table[choice] = 'x';
@@ -55,7 +55,7 @@ void Morpion()
 			std::cout << "la place et deja occuper" << std::endl;
 		}
 
-		
+
 
 		// condition de victoire joueur
 		for (int i = 0; i <= 6; i = i + 3)
@@ -81,7 +81,7 @@ void Morpion()
 			std::cout << "Bien jouer Gagner !" << std::endl;
 			end = 1;
 		}
-		
+
 		while (true) // bot stupide (random)
 		{
 			choice = Generator(max_Table);
@@ -140,104 +140,249 @@ void Morpion()
 
 
 
-void PrintCell(int c)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void PrintCell(int tab[])
 {
-	std::cout << "[";
-	if (c == -1)
+	int a = 2;
+
+	for (int i = 0; i < 9; i++)
 	{
-		std::cout << "X";
+		std::cout << " [ ";
+		if (tab[i] == 0)
+			std::cout << "   ";
+		else if (tab[i] == -1)
+			std::cout << " X ";
+
+		else if (tab[i] == -2)
+			std::cout << " O ";
+
+		std::cout << " ] ";
+		if (i == a)
+		{
+			a = a + 3;
+			std::cout << std::endl;
+		}
 	}
-	std::cout << "]";
+
 }
 
-int main()
+void Morpions_Cours()
 {
-	int c1 = 1;
-	int c2 = 1;
-	int c3 = 1;
-	int c4 = 1;
-	int c5 = 1;
-	int c6 = 1;
-	int c7 = 1;
-	int c8 = 1;
-	int c9 = 1;
+	int end = 0;
+	int testeIf = 0;
+	int tab[9]; // {0}
+	for (int i = 0; i < 9; i++)
+	{
+		tab[i] = 0;
+	}
 
 	while (true)
 	{
-		std::cout << "[" << ((c1 == -1) ? 'X' : c1) << "]";
-		std::cout << "[" << ((c2 == -1) ? 'X' : c2) << "]";
-		std::cout << "[" << ((c3 == -1) ? 'X' : c3) << "]" << std::endl;
-		std::cout << "[" << ((c4 == -1) ? 'X' : c4) << "]";
-		std::cout << "[" << ((c5 == -1) ? 'X' : c5) << "]";
-		std::cout << "[" << ((c6 == -1) ? 'X' : c6) << "]" << std::endl;
-		std::cout << "[" << ((c7 == -1) ? 'X' : c7) << "]";
-		std::cout << "[" << ((c8 == -1) ? 'X' : c8) << "]";
-		std::cout << "[" << ((c9 == -1) ? 'X' : c9) << "]" << std::endl;
+		int a = 2;
+		/*for (int i = 0; i < 9; i++)
+		{
+			std::cout << " [ " << ((((tab[i] == -1) ? 'X' : tab[i] ) || ((tab[i] == -2) ? 'O' : tab[i])) ||((tab[i] == 0) ? ' ' : tab[i])) << " ] ";
+			if (i == a)
+			{
+				a = a + 3;
+				std::cout << std::endl;
+			}
+		}*/
+
+
 
 		std::cout << "Choisit une case" << std::endl;
 
-		PrintCell(c1);
-		PrintCell(c2);
-		PrintCell(c3);
 		std::cout << std::endl;
-		PrintCell(c4);
-		PrintCell(c5);
-		PrintCell(c6);
-		std::cout << std::endl;
-		PrintCell(c7);
-		PrintCell(c8);
-		PrintCell(c9);
-		
-		int choice = Choice(1, 9);
-		system("cls");
-		switch (choice == 1)
+
+		std::cout << "Joueur 1 a vous de jouer " << std::endl;
+		while (true)
 		{
-			case 1:
+			int choice = Choice(1, 9) - 1;
+			if (tab[choice] == 0)
 			{
-				c1 = -1;
+				tab[choice] = -1;
 				break;
+			}
+			std::cout << "La case et deja prise" << std::endl;
 		}
-			case 2:
+
+
+		// condition de victoire joueur
+		for (int i = 0; i < 9; i++)
+		{
+			if (tab[i] == 0)
 			{
-				c2 = -1;
+				testeIf = 1;
 				break;
-		}
-			case 3:
+			}
+			else if(tab)
 			{
-				c3= -1;
+				testeIf = 0;
+				end = 1;
+				std::cout << "Match nul" << std::endl;
 				break;
-		}
-			case 4:
-			{
-				c4 = -1;
-				break;
-		}
-			case 5:
-			{
-				c5 = -1;
-				break;
-		}
-			case 6:
-			{
-				c6 = -1;
-				break;
-		}
-			case 7:
-			{
-				c7 = -1;
-				break;
-		}
-			case 8:
-			{
-				c8 = -1;
-				break;
-		}
-			case 9:
-			{
-				c9 = -1;
-				break;
+			}
 		}
 			
+		if(testeIf == 1)
+		{
+			for (int i = 0; i <= 6; i = i + 3)
+			{
+				if (tab[i] == -1 && tab[i + 1] == -1 && tab[i + 2] == -1)
+				{
+					std::cout << "Bien joueur 1 Gagner !" << std::endl;
+					PrintCell(tab);
+					end = 1;
+					break;
+				}
+			}
+			for (int i = 0; i <= 3; i++)
+			{
+				if (tab[i] == -1 && tab[i + 3] == -1 && tab[i + 6] == -1)
+				{
+					std::cout << "Bien joueur 1 Gagner !" << std::endl;
+					PrintCell(tab);
+					end = 1;
+					break;
+				}
+			}
+			if ((tab[0] == -1 && tab[4] == -1 && tab[8] == -1) || (tab[6] == -1 && tab[4] == -1 && tab[2] == -1))
+			{
+				std::cout << "Bien joueur 1 Gagner !" << std::endl;
+				PrintCell(tab);
+				end = 1;
+				break;
+			}
 		}
+		
+
+		if (end == 1)
+			break;
+
+		system("cls");
+		PrintCell(tab);
+
+		std::cout << "Joueur 2 a vous de jouer " << std::endl;
+		while (true)
+		{
+			int choice = Choice(1, 9) - 1;
+			if (tab[choice] == 0)
+			{
+				tab[choice] = -2;
+				break;
+			}
+			std::cout << "La case et deja prise" << std::endl;
+		}
+
+
+
+
+
+		for (int i = 0; i <= 6; i = i + 3)
+		{
+			if (tab[i] == -2 && tab[i + 1] == -2 && tab[i + 2] == -2)
+			{
+				std::cout << "Bien joueur 2 Gagner !" << std::endl;
+				end = 1;
+				break;
+			}
+		}
+		for (int i = 0; i <= 3; i++)
+		{
+			if (tab[i] == -2 && tab[i + 3] == -2 && tab[i + 6] == -2)
+			{
+				std::cout << "Bien joueur 2 Gagner !" << std::endl;
+				end = 1;
+				break;
+			}
+		}
+		if ((tab[0] == -2 && tab[4] == -2 && tab[8] == -1) || (tab[6] == -2 && tab[4] == -2 && tab[2] == -2))
+		{
+			std::cout << "Bien joueur 2 Gagner !" << std::endl;
+			end = 1;
+			break;
+		}
+		PrintCell(tab);
+		if (end == 1)
+			break;
+
+		/*
+		// ne marche pas
+		switch (choice == 1)
+		{
+		case 1:
+		{
+			tab[0] = -1;
+			break;
+		}
+		case 2:
+		{
+			tab[1] = -1;
+			break;
+		}
+		case 3:
+		{
+			tab[2] = -1;
+			break;
+		}
+		case 4:
+		{
+			tab[3] = -1;
+			break;
+		}
+		case 5:
+		{
+			tab[4] = -1;
+			break;
+		}
+		case 6:
+		{
+			tab[5] = -1;
+			break;
+		}
+		case 7:
+		{
+			tab[6] = -1;
+			break;
+		}
+		case 8:
+		{
+			tab[7] = -1;
+			break;
+		}
+		case 9:
+		{
+			tab[8] = -1;
+			break;
+		}
+
+		}
+		*/
 	}
+}
+
+
+int main()
+{
+	Morpions_Cours();
+	return 0;
 }
