@@ -11,7 +11,7 @@ int Choice(int min, int max)
 		cin >> choice;
 		if (choice >= min && choice <= max)
 			break;
-		cout << "saisit incorecte recomancer" << endl;
+		cout << "saisit incorecte recommencer" << endl;
 	}
 
 
@@ -49,7 +49,7 @@ int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 	// Proto ->
 	if (choice == botChoice)
 	{
-		cout << endl << "egaliter" << endl;
+		cout << endl << "egalite" << endl;
 		score[2] = score[2] + 1;
 	}
 	else if (choice == 0) // caillou
@@ -61,7 +61,7 @@ int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 		}
 		else
 		{
-			cout << endl << "Victoir " << endl;
+			cout << endl << "Victoire " << endl;
 			score[0] = score[0] + 1;
 
 		}
@@ -108,7 +108,7 @@ int PrintResult(int choice, int botChoice, int score[3], int numberOfManche)
 		else if (botChoice == 2)
 		{
 			cout << endl << "Perdu" << endl;
-			score[1] == score[1] + 1;
+			score[1] = score[1] + 1;
 		}
 	}
 	else if (choice == 2)
@@ -158,7 +158,7 @@ int IA(int randomIA, int tableIA[3])
 	else
 	{
 		botChoice = Random(3);
-		//cout << endl << "RN" << endl;
+		//cout << endl << "Rand" << endl;
 	}
 	return botChoice;
 }
@@ -194,15 +194,13 @@ void Play()
 		cout << "Machine joue -> ";
 		Print_Choice(botChoice);
 
-
+		system("cls");
 		result = PrintResult(choice, botChoice, score, numberOfManche);
 		if (result == 0)
 		{
 			break;
 		}
-
-	}
-	
+	}	
 }
 
 int main()
@@ -220,8 +218,6 @@ int main()
 		if (rePlay == 1)
 			break;
 	}
-	
-
 
 	return 0;
 }
