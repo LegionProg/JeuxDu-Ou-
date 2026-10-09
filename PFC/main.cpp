@@ -188,6 +188,7 @@ void Play()
 			<< "Ciseau = 2" << endl;
 
 		choice = Choice(0, 2);
+		system("cls");
 		cout << "Humain joue -> ";
 		Print_Choice(choice);
 
@@ -195,8 +196,7 @@ void Play()
 
 		cout << "Machine joue -> ";
 		Print_Choice(botChoice);
-
-		system("cls");
+		
 		result = PrintResult(choice, botChoice, score, numberOfManche);
 		if (result == 0)
 		{
@@ -210,13 +210,14 @@ int main()
 	int rePlay;
 	while (true)
 	{
-
+		
 		Play();
 		
 		cout << "rejouer ? " << endl
 			<< " Oui = 0" << endl
 			<< " Non = 1" << endl;
 		rePlay = Choice(0, 1);
+
 		if (rePlay == 1)
 			break;
 	}
