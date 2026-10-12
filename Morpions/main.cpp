@@ -29,11 +29,11 @@ int ChekWin(int tab[], int symbole, int n)
 		{
 			break;
 		}*/
-		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2] && tab[index] !=0) // verticale
+		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2] && tab[index] !=0 && tab[0*n + 1] == tab[index+2]) // verticale
 			return symbole;
 		if (tab[i] == tab[i + n] && tab[i] == tab[i + n + n] && tab[i] != 0) // horisontal
 			return symbole;
-		if (tab[i] == tab[i + n+1] && tab[i] == tab[i + n+1 + n+1] && tab[i] != 0) // diagonal gauche droite
+		if (tab[i] == tab[i + n+1] && tab[i] == tab[i + n+1 + n+1] && tab[i] != 0 ) // diagonal gauche droite
 			return symbole;
 		if (tab[i+n] == tab[i + n+n-1] && tab[i] == tab[i +n+ n-1 + n-1] && tab[i] != 0) // diagonal droite gauche
 			return symbole;
@@ -103,7 +103,17 @@ void Morpions_Cours()
 
 	while (true)
 	{
-	
+		tab[1] = -1;
+		tab[2] = -1;
+		tab[3] = -1;
+		end = ChekWin(tab, -1, n);
+		if (end == -1)
+		{
+			std::cout << "Joueur a gagner" << std::endl;
+			PrintCell(tab, n, sizeTab);
+			break;
+		}
+
 		int a = 2;
 
 	//	system("cls");
@@ -205,14 +215,15 @@ void Morpions_Cours()
 						std::cout << "IA vertical manque i+2" << symbole << std::endl;
 						break;
 					}
+
 					else if (tab[i + 1] == symbole && tab[i + 2] == symbole && tab[i] == 0) // si troue a gauche
 					{
- 						tab[i] = -2; // faire un autre for pour lui
+						tab[i] = -2; // faire un autre for pour lui
 						noIdeaIA = false;
 						std::cout << "IA vertical manque i" << symbole << std::endl; // probleme
 						break;
 					}
-					else if (tab[i] == symbole && tab[i + 2] == symbole && tab[i + 1] == 0) // si troue au milieux
+					else if (tab[i] == symbole && tab[i + 2] == symbole && tab[i + 1] == 0 ) // si troue au milieux
 					{
 						tab[i + 1] = -2;
 						noIdeaIA = false;
@@ -242,8 +253,6 @@ void Morpions_Cours()
 						std::cout << "IA horizontal manque i " << std::endl;
 						break;
 					}
-
-
 				}
 			}
 			symbole = -1;// contrer adversaire 
