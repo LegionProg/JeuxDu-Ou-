@@ -21,149 +21,29 @@ int Generator(int max)
 }
 
 
-void Morpion()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void PrintCell(int tab[], int n, int tailleTab)
 {
-	std::cout << "Bien venue au morpions" << std::endl;
-	int end = 0;
-	const int max_Table = 9;
-	char table[max_Table]{ ' ', ' ',' ',' ', ' ',' ', ' ', ' ',' ' };
-	int choice;
-	while (true)
-	{
-		int a = 2;
-		for (int i = 0; i <= 8; i++)
-		{
-			std::cout << table[i];
-			if (i != a && i != 9)
-				std::cout << " | ";
-			if (i == a)
-			{
-				std::cout << std::endl;
-				a = a + 3;
-			}
-
-		}
-
-		while (true) // joueur qui joue
-		{
-			choice = Choice(1, 9) - 1;
-			if (table[choice] == ' ')
-			{
-				table[choice] = 'x';
-				break;
-			}
-			std::cout << "la place et deja occuper" << std::endl;
-		}
-
-
-
-		// condition de victoire joueur
-		for (int i = 0; i <= 6; i = i + 3)
-		{
-			if (table[i] == 'x' && table[i + 1] == 'x' && table[i + 2] == 'x')
-			{
-				std::cout << "Bien jouer Gagner !" << std::endl;
-				end = 1;
-				break;
-			}
-		}
-		for (int i = 0; i <= 3; i++)
-		{
-			if (table[i] == 'x' && table[i + 3] == 'x' && table[i + 6] == 'x')
-			{
-				std::cout << "Bien jouer Gagner !" << std::endl;
-				end = 1;
-				break;
-			}
-		}
-		if ((table[0] == 'x' && table[4] == 'x' && table[8] == 'x') || (table[6] == 'x' && table[4] == 'x' && table[2] == 'x'))
-		{
-			std::cout << "Bien jouer Gagner !" << std::endl;
-			end = 1;
-		}
-
-		while (true) // bot stupide (random)
-		{
-			choice = Generator(max_Table);
-			if (table[choice] == ' ')
-			{
-				table[choice] = 'o';
-				break;
-			}
-
-		}
-		for (int i = 0; i == 8; i++)
-		{
-			if (table[i] == ' ' && table[i + 1] == ' ' && table[i + 2] == ' ')
-			{
-				std::cout << " Egaliter " << std::endl;
-				end = 1;
-				break;
-			}
-		}
-
-		for (int i = 0; i == 6; i = i + 3) // vertical
-		{
-			if (table[i] == 'o' && table[i + 1] == 'o' && table[i + 2] == 'o')
-			{
-				std::cout << "Perdu !" << std::endl;
-				end = 1;
-				break;
-			}
-
-		}
-		for (int i = 0; i == 3; i++) // horizontal
-		{
-			if (table[i] == 'o' && table[i + 3] == 'o' && table[i + 6] == 'o')
-			{
-				std::cout << "Perdu !" << std::endl;
-				end = 1;
-				break;
-			}
-		}
-		if ((table[0] == 'o' && table[4] == 'o' && table[8] == 'o') || (table[6] == 'o' && table[4] == 'o' && table[2] == 'o'))
-		{
-			std::cout << "Perdu !" << std::endl;
-			end = 1;
-		}
-		if (end != 0)
-		{
-			std::cout << "La parti et finis la relancer ? " << std::endl
-				<< "Oui = 0" << std::endl
-				<< "Non = 1" << std::endl;
-			end = Choice(0, 1);
-			if (end == 1)
-				break;
-		}
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void PrintCell(int tab[])
-{
-	int a = 2;
-
-	for (int i = 0; i < 9; i++)
+	int a = n - 1;
+	for (int i = 0; i < tailleTab; i++)
 	{
 		std::cout << " [ ";
 		if (tab[i] == 0)
@@ -177,7 +57,7 @@ void PrintCell(int tab[])
 		std::cout << " ] ";
 		if (i == a)
 		{
-			a = a + 3;
+			a = a + n;
 			std::cout << std::endl;
 		}
 	}
@@ -186,10 +66,19 @@ void PrintCell(int tab[])
 
 void Morpions_Cours()
 {
+	int numberPlayer = 1;
 	int end = 0;
-	int testeIf = 0;
-	int tab[9]; // {0}
-	for (int i = 0; i < 9; i++)
+	int testeIf = 1;
+	int choice = 0;
+	bool noIdeaIA = false;
+
+	// tableau
+	const int n = 4;
+	const int tailleTab = n * n;
+	int tab[tailleTab]; // {0}
+	int tabChoice[2]{ 0 };
+
+	for (int i = 0; i < tailleTab; i++)
 	{
 		tab[i] = 0;
 	}
@@ -197,6 +86,7 @@ void Morpions_Cours()
 	while (true)
 	{
 		int a = 2;
+
 		/*for (int i = 0; i < 9; i++)
 		{
 			std::cout << " [ " << ((((tab[i] == -1) ? 'X' : tab[i] ) || ((tab[i] == -2) ? 'O' : tab[i])) ||((tab[i] == 0) ? ' ' : tab[i])) << " ] ";
@@ -207,16 +97,35 @@ void Morpions_Cours()
 			}
 		}*/
 
-
+		system("cls");
+		PrintCell(tab, n, tailleTab);
 
 		std::cout << "Choisit une case" << std::endl;
 
 		std::cout << std::endl;
 
-		std::cout << "Joueur 1 a vous de jouer " << std::endl;
+
 		while (true)
 		{
-			int choice = Choice(1, 9) - 1;
+			std::cout << "Joueur 1 a vous de jouer choisiser Y" << std::endl;
+			tabChoice[0] = Choice(1, n) - 1; // Y
+			std::cout << "Joueur 1 a vous de jouer choisiser X" << std::endl;
+			tabChoice[1] = Choice(1, n) - 1; // X
+
+			for (int a = 0; a < n; a++)
+			{
+				for (int i = 0; i < n; i++)
+				{
+					if (tabChoice[0] == a)
+						if (tabChoice[1] == i)
+						{
+							choice = i + (a * n); // problème
+							break;
+						}
+				}
+			}
+
+
 			if (tab[choice] == 0)
 			{
 				tab[choice] = -1;
@@ -227,77 +136,152 @@ void Morpions_Cours()
 
 
 		// condition de victoire joueur
-		for (int i = 0; i < 9; i++)
+
+
+
+		for (int i = 0; i <= n * 2; i = i + n)
 		{
-			if (tab[i] == 0)
-			{
-				testeIf = 1;
-				break;
-			}
-			else if(tab)
-			{
-				testeIf = 0;
-				end = 1;
-				std::cout << "Match nul" << std::endl;
-				break;
-			}
-		}
-			
-		if(testeIf == 1)
-		{
-			for (int i = 0; i <= 6; i = i + 3)
-			{
-				if (tab[i] == -1 && tab[i + 1] == -1 && tab[i + 2] == -1)
-				{
-					std::cout << "Bien joueur 1 Gagner !" << std::endl;
-					PrintCell(tab);
-					end = 1;
-					break;
-				}
-			}
-			for (int i = 0; i <= 3; i++)
-			{
-				if (tab[i] == -1 && tab[i + 3] == -1 && tab[i + 6] == -1)
-				{
-					std::cout << "Bien joueur 1 Gagner !" << std::endl;
-					PrintCell(tab);
-					end = 1;
-					break;
-				}
-			}
-			if ((tab[0] == -1 && tab[4] == -1 && tab[8] == -1) || (tab[6] == -1 && tab[4] == -1 && tab[2] == -1))
+			if (tab[i] == -1 && tab[i + 1] == -1 && tab[i + 2] == -1)
 			{
 				std::cout << "Bien joueur 1 Gagner !" << std::endl;
-				PrintCell(tab);
+				PrintCell(tab, n, tailleTab);
 				end = 1;
 				break;
 			}
 		}
-		
+		for (int i = 0; i <= n; i++)
+		{
+			if (tab[i] == -1 && tab[i + 3] == -1 && tab[i + 6] == -1)
+			{
+				std::cout << "Bien joueur 1 Gagner !" << std::endl;
+				PrintCell(tab, n, tailleTab);
+				end = 1;
+				break;
+			}
+		}
+		if ((tab[0] == -1 && tab[4] == -1 && tab[8] == -1) || (tab[6] == -1 && tab[4] == -1 && tab[2] == -1))
+		{
+			std::cout << "Bien joueur 1 Gagner !" << std::endl;
+			PrintCell(tab, n, tailleTab);
+			end = 1;
+			break;
+		}
+		else {
+			for (int i = 0; i < 9; i++) // probleme avec matche null
+			{
+				if (tab[i] == 0)
+				{
+					testeIf = 1;
+					break;
+				}
+				else
+					testeIf = 0;
+			}
+			if (testeIf == 0)
+				std::cout << "Egaliter !" << std::endl;
+
+		}
+
+
 
 		if (end == 1)
 			break;
 
 		system("cls");
-		PrintCell(tab);
+		PrintCell(tab, n, tailleTab);
 
-		std::cout << "Joueur 2 a vous de jouer " << std::endl;
-		while (true)
+		// IA / Bot / Joueur 2
+
+		//JOueur 2
+		/*if (numberPlayer == 2)
 		{
-			int choice = Choice(1, 9) - 1;
-			if (tab[choice] == 0)
+			std::cout << "Joueur 2 a vous de jouer " << std::endl;
+			while (true)
 			{
-				tab[choice] = -2;
+				int choice = Choice(1, n) - 1;
+				if (tab[choice] == 0)
+				{
+					tab[choice] = -2;
+					break;
+				}
+				std::cout << "La case et deja prise" << std::endl;
+			}
+		}*/
+
+		// Bot // Rand
+		if (false)
+		{
+			while (true)
+			{
+				choice = Generator(8);
+				if (tab[choice] == 0)
+				{
+					tab[choice] = -2;
+					break;
+				}
+			}
+		}
+
+		//IA // inteligent (comme les premier IA pour les echeque
+		noIdeaIA = true;
+		for (int i = 0; i < n; i++)// Chercher si uncoup lui permet de Win
+		{
+			if (tab[i] == -2 && tab[i + 1] == -2 && tab[i + 2] == 0) // si troue a droite
+			{
+				tab[i + 2] = -2;
+				noIdeaIA = false;
 				break;
 			}
-			std::cout << "La case et deja prise" << std::endl;
+			else if (tab[i + 1] == -2 && tab[i + 2] == -2 && tab[i] == 0) // si troue a gauche
+			{
+				tab[i] = -2;
+				noIdeaIA = false;
+				break;
+			}
+			else if (tab[i] == -2 && tab[i + 2] == -2 && tab[i + 1] == 0) // si troue au milieux
+			{
+				tab[i + 1] = -2;
+				noIdeaIA = false;
+				break;
+			}
+
+			// haut bas
+			else if (tab[i] == -2 && tab[i + n] == -2 && tab[i + n + n] == 0)
+			{
+				tab[i + n + n] = -2;
+				noIdeaIA = false;
+				break;
+			}
+			else if (tab[i] == -2 && tab[i + n + n] == -2 && tab[i + n] == 0)
+			{
+				tab[i + n] = -2;
+				noIdeaIA = false;
+				break;
+			}
+			else if (tab[i+n] == -2 && tab[i + n + n] == -2 && tab[i] == 0)
+			{
+				tab[i] = -2;
+				noIdeaIA = false;
+				break;
+			}
+
+		}
+
+		if (noIdeaIA) // si l'ia na pas d'idée de quoi jouer alors il choisit rand
+		{
+			while (true)
+			{
+				choice = Generator(tailleTab - 1);
+				if (tab[choice] == 0)
+				{
+					tab[choice] = -2;
+					break;
+				}
+			}
 		}
 
 
-
-
-
-		for (int i = 0; i <= 6; i = i + 3)
+		for (int i = 0; i <= n+n; i = i + 3)
 		{
 			if (tab[i] == -2 && tab[i + 1] == -2 && tab[i + 2] == -2)
 			{
@@ -306,77 +290,26 @@ void Morpions_Cours()
 				break;
 			}
 		}
-		for (int i = 0; i <= 3; i++)
+		for (int i = 0; i <= n; i++)
 		{
-			if (tab[i] == -2 && tab[i + 3] == -2 && tab[i + 6] == -2)
+			if (tab[i] == -2 && tab[i + n] == -2 && tab[i + n+n] == -2)
 			{
 				std::cout << "Bien joueur 2 Gagner !" << std::endl;
 				end = 1;
 				break;
+				if ((tab[i] == -2 && tab[i+n+1] == -2 && tab[i+n+1+n+1] == -1) || (tab[6] == -2 && tab[4] == -2 && tab[2] == -2)) // ne fonctionne pas la regle change si n et paire ou impaire
+				{
+					std::cout << "Bien joueur 2 Gagner !" << std::endl;
+					end = 1;
+					break;
+				}
 			}
 		}
-		if ((tab[0] == -2 && tab[4] == -2 && tab[8] == -1) || (tab[6] == -2 && tab[4] == -2 && tab[2] == -2))
-		{
-			std::cout << "Bien joueur 2 Gagner !" << std::endl;
-			end = 1;
-			break;
-		}
-		PrintCell(tab);
+	
+
 		if (end == 1)
 			break;
 
-		/*
-		// ne marche pas
-		switch (choice == 1)
-		{
-		case 1:
-		{
-			tab[0] = -1;
-			break;
-		}
-		case 2:
-		{
-			tab[1] = -1;
-			break;
-		}
-		case 3:
-		{
-			tab[2] = -1;
-			break;
-		}
-		case 4:
-		{
-			tab[3] = -1;
-			break;
-		}
-		case 5:
-		{
-			tab[4] = -1;
-			break;
-		}
-		case 6:
-		{
-			tab[5] = -1;
-			break;
-		}
-		case 7:
-		{
-			tab[6] = -1;
-			break;
-		}
-		case 8:
-		{
-			tab[7] = -1;
-			break;
-		}
-		case 9:
-		{
-			tab[8] = -1;
-			break;
-		}
-
-		}
-		*/
 	}
 }
 
