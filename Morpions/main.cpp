@@ -20,8 +20,19 @@ int Generator(int max)
 	return rand() % (max + 1);
 }
 
-
-
+int ChekWin(int tab, int symbole, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		int index = i * 3; 
+		/*if (tab[index] != symbole)
+		{
+			break;
+		}*/
+		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2])
+			return symbole;
+	}
+}
 
 
 
@@ -74,11 +85,11 @@ void Morpions_Cours()
 
 	// tableau
 	const int n = 4;
-	const int tailleTab = n * n;
-	int tab[tailleTab]; // {0}
+	const int sizeTab = n * n;
+	int tab[sizeTab]; // {0}
 	int tabChoice[2]{ 0 };
 
-	for (int i = 0; i < tailleTab; i++)
+	for (int i = 0; i < sizeTab; i++)
 	{
 		tab[i] = 0;
 	}
@@ -98,7 +109,7 @@ void Morpions_Cours()
 		}*/
 
 		system("cls");
-		PrintCell(tab, n, tailleTab);
+		PrintCell(tab, n, sizeTab);
 
 		std::cout << "Choisit une case" << std::endl;
 
@@ -136,10 +147,10 @@ void Morpions_Cours()
 
 
 		// condition de victoire joueur
+		ChekWin(tab[sizeTab], -1, n);
 
 
-
-		for (int i = 0; i <= n * 2; i = i + n)
+		/*for (int i = 0; i <= n * 2; i = i + n)
 		{
 			if (tab[i] == -1 && tab[i + 1] == -1 && tab[i + 2] == -1)
 			{
@@ -151,7 +162,7 @@ void Morpions_Cours()
 		}
 		for (int i = 0; i <= n; i++)
 		{
-			if (tab[i] == -1 && tab[i + 3] == -1 && tab[i + 6] == -1)
+			if (tab[i] == -1 && tab[i + n] == -1 && tab[i + n+n] == -1)
 			{
 				std::cout << "Bien joueur 1 Gagner !" << std::endl;
 				PrintCell(tab, n, tailleTab);
@@ -165,8 +176,7 @@ void Morpions_Cours()
 			PrintCell(tab, n, tailleTab);
 			end = 1;
 			break;
-		}
-		else {
+			else {
 			for (int i = 0; i < 9; i++) // probleme avec matche null
 			{
 				if (tab[i] == 0)
@@ -181,14 +191,17 @@ void Morpions_Cours()
 				std::cout << "Egaliter !" << std::endl;
 
 		}
-
-
-
 		if (end == 1)
 			break;
 
+		}*/
+		
+
+
+
+		
 		system("cls");
-		PrintCell(tab, n, tailleTab);
+		PrintCell(tab, n, sizeTab);
 
 		// IA / Bot / Joueur 2
 
@@ -271,7 +284,7 @@ void Morpions_Cours()
 		{
 			while (true)
 			{
-				choice = Generator(tailleTab - 1);
+				choice = Generator(sizeTab - 1);
 				if (tab[choice] == 0)
 				{
 					tab[choice] = -2;
@@ -281,11 +294,14 @@ void Morpions_Cours()
 		}
 
 
-		for (int i = 0; i <= n+n; i = i + 3)
+
+		// victoire bot
+		end = ChekWin(tab[sizeTab], -2, n);
+		/*for (int i = 0; i <= n+n; i = i + n)
 		{
 			if (tab[i] == -2 && tab[i + 1] == -2 && tab[i + 2] == -2)
 			{
-				std::cout << "Bien joueur 2 Gagner !" << std::endl;
+				std::cout << "Machine Gagne !" << std::endl;
 				end = 1;
 				break;
 			}
@@ -294,24 +310,32 @@ void Morpions_Cours()
 		{
 			if (tab[i] == -2 && tab[i + n] == -2 && tab[i + n+n] == -2)
 			{
-				std::cout << "Bien joueur 2 Gagner !" << std::endl;
+				std::cout << "Machine Gagne !" << std::endl;
 				end = 1;
 				break;
-				if ((tab[i] == -2 && tab[i+n+1] == -2 && tab[i+n+1+n+1] == -1) || (tab[6] == -2 && tab[4] == -2 && tab[2] == -2)) // ne fonctionne pas la regle change si n et paire ou impaire
-				{
-					std::cout << "Bien joueur 2 Gagner !" << std::endl;
-					end = 1;
-					break;
-				}
 			}
-		}
+			if ((tab[i] == -2 && tab[i + n + 1] == -2 && tab[i + n + 1 + n + 1] == -1) || (tab[i] == -2 && tab[i+n-1] == -2 && tab[i + n - 1+n-1] == -2))
+			{
+				std::cout << "Machine Gagne !" << std::endl;
+				end = 1;
+				break;
+			}
+		}*/
 	
 
-		if (end == 1)
+		if (end == -1)
+		{
+			std::cout << "Joueur a gagner" << std::endl;
 			break;
+		}
+		else if (end == -2)
+		{
+			std::cout << "Machine a gagner" << std::endl;
+			break;
+		}
 
 	}
-}
+}/**/
 
 
 int main()
