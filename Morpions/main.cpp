@@ -1,44 +1,52 @@
 #include <iostream>
+#include <conio.h>
 
 int Choice(int min, int max)
 {
-	int choice;
+	int choice = 0;
 	while (true)
 	{
-		std::cin >> choice;
+		choice = _getch();
+		std::cout << choice << std::endl;
+		//std::cin >> choice;
 		if (choice >= min && choice <= max)
 			break;
 		std::cout << "Vous avez mal saisie recommencer et cette fois si correctement !!!" << std::endl;
 	}
-
+	
 
 	return choice;
 }
 int Generator(int max)
 {
-
 	return rand() % (max + 1);
 }
 
-int ChekWin(int tab[], int symbole, int n)
+int ChekWin(int tab[], int symbole, int n2)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n2; i++)
 	{
-		int index = i * n; 
+		int index = i * n2;
 		/*if (tab[index] != symbole)
 		{
 			break;
 		}*/
-		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2] && tab[index] !=0 && tab[0*n + 1] == tab[index+2]) // verticale
+		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2] && tab[index] != 0 && tab[0 * n2 + 1] == tab[index + 2]) // verticale
 			return symbole;
-		if (tab[i] == tab[i + n] && tab[i] == tab[i + n + n] && tab[i] != 0) // horisontal
+		if (tab[i] == tab[i + n2] && tab[i] == tab[i + n2 + n2] && tab[i] != 0) // horisontal
 			return symbole;
-		if (tab[i] == tab[i + n+1] && tab[i] == tab[i + n+1 + n+1] && tab[i] != 0 ) // diagonal gauche droite
+		if (tab[i] == tab[i + n2 + 1] && tab[i] == tab[i + n2 + 1 + n2 + 1] && tab[i] != 0) // diagonal gauche droite
 			return symbole;
-		if (tab[i+n] == tab[i + n+n-1] && tab[i] == tab[i +n+ n-1 + n-1] && tab[i] != 0) // diagonal droite gauche
+		if (tab[i + n2] == tab[i + n2 + n2 - 1] && tab[i] == tab[i + n2 + n2 - 1 + n2 - 1] && tab[i] != 0) // diagonal droite gauche
 			return symbole;
+		
 	}
-	return 0;
+	for(int i = 0; i <n2*n2; i++)
+	{
+		if (tab[i] == 0)
+			return 5;
+	}
+		return 1;
 }
 
 
@@ -58,9 +66,10 @@ int ChekWin(int tab[], int symbole, int n)
 
 
 
-void PrintCell(int tab[], int n, int tailleTab)
+void PrintCell(int tab[], int n2 )
 {
-	int a = n - 1;
+	int a = n2 - 1;
+	int tailleTab = n2 * n2;
 	for (int i = 0; i < tailleTab; i++)
 	{
 		std::cout << " [ ";
@@ -75,7 +84,7 @@ void PrintCell(int tab[], int n, int tailleTab)
 		std::cout << " ] ";
 		if (i == a)
 		{
-			a = a + n;
+			a = a + n2;
 			std::cout << std::endl;
 		}
 	}
@@ -91,204 +100,208 @@ void Morpions_Cours()
 	bool noIdeaIA = false;
 	int symbole;
 	// tableau
-	const int n = 3;
-	const int sizeTab = n * n;
-	int tab[sizeTab]; // {0}
-	int tabChoice[2]{ 0 };
-
-	for (int i = 0; i < sizeTab; i++)
+	const int n = 20;
+	for (int i = 0; i < n; i++)
 	{
-		tab[i] = 0;
-	}
+		std::cout << "agrandire le tableau car egaliter valeur de i" << i << std::endl;
+		int n2 = 3 + i;// pour
 
-	while (true)
-	{
-		tab[1] = -1;
-		tab[2] = -1;
-		tab[3] = -1;
-		end = ChekWin(tab, -1, n);
-		if (end == -1)
+		const int sizeTab = n * n;
+		int tab[sizeTab]; // {0}
+		int tabChoice[2]{ 0 };
+
+		for (int i = 0; i < sizeTab; i++)
 		{
-			std::cout << "Joueur a gagner" << std::endl;
-			PrintCell(tab, n, sizeTab);
-			break;
+			tab[i] = 0;
 		}
-
-		int a = 2;
-
-	//	system("cls");
-		PrintCell(tab, n, sizeTab);
-
-		std::cout << "Choisit une case" << std::endl;
-
-		std::cout << std::endl;
-
 
 		while (true)
 		{
-			std::cout << "Joueur 1 a vous de jouer choisiser Y" << std::endl;
-			tabChoice[0] = Choice(1, n) - 1; // Y
-			std::cout << "Joueur 1 a vous de jouer choisiser X" << std::endl;
-			tabChoice[1] = Choice(1, n) - 1; // X
 
-			for (int a = 0; a < n; a++)
-			{
-				for (int i = 0; i < n; i++)
-				{
-					if (tabChoice[0] == a)
-						if (tabChoice[1] == i)
-						{
-							choice = i + (a * n); // problème
-							break;
-						}
-				}
-			}
+			int a = 2;
+
+			system("cls");
+			PrintCell(tab, n2);
+
+			std::cout << "Choisit une case" << std::endl;
+
+			std::cout << std::endl;
 
 
-			if (tab[choice] == 0)
-			{
-				tab[choice] = -1;
-				break;
-			}
-			std::cout << "La case et deja prise" << std::endl;
-		}
-
-
-		// condition de victoire joueur
-		end =ChekWin(tab, -1, n);
-		if (end == -1)
-		{
-			std::cout << "Joueur a gagner" << std::endl;
-			PrintCell(tab, n, sizeTab);
-			break;
-		}
-
-		
-	//	system("cls");
-		PrintCell(tab, n, sizeTab);
-
-		// IA / Bot / Joueur 2
-
-		//Joueur 2
-		if (numberPlayer == 2)
-		{
-			std::cout << "Joueur 2 a vous de jouer " << std::endl;
 			while (true)
 			{
-				int choice = Choice(1, n) - 1;
+				std::cout << "Joueur 1 a vous de jouer choisiser Y" << std::endl;
+				tabChoice[0] = Choice(1, n2) - 1; // Y
+				std::cout << "Joueur 1 a vous de jouer choisiser X" << std::endl;
+				tabChoice[1] = Choice(1, n2) - 1; // X
+
+				for (int a = 0; a < n2; a++)
+				{
+					for (int i = 0; i < n2; i++)
+					{
+						if (tabChoice[0] == a)
+							if (tabChoice[1] == i)
+							{
+								choice = i + (a * n2); // problème
+								break;
+							}
+					}
+				}
+
+
 				if (tab[choice] == 0)
 				{
-					tab[choice] = -2;
+					tab[choice] = -1;
 					break;
 				}
 				std::cout << "La case et deja prise" << std::endl;
 			}
-		}
 
-		// Bot // Rand
-		/*if (false)
-		{
-			while (true)
+			// condition de victoire joueur
+			end = ChekWin(tab, -1, n2);
+			if (end == -1)
 			{
-				choice = Generator(8);
-				if (tab[choice] == 0)
+				break;
+			}
+			else if (end == 1)
+				break;
+
+			/*system("cls");
+			PrintCell(tab, n2);*/
+
+			// IA / Bot / Joueur 2
+
+			//Joueur 2
+			if (numberPlayer == 2)
+			{
+				std::cout << "Joueur 2 a vous de jouer " << std::endl;
+				while (true)
 				{
-					tab[choice] = -2;
-					break;
+					int choice = Choice(1, n2) - 1;
+					if (tab[choice] == 0)
+					{
+						tab[choice] = -2;
+						break;
+					}
+					std::cout << "La case et deja prise" << std::endl;
 				}
 			}
-		}*/
 
-		//IA // inteligente (comme les premier IA pour les echeque
-		noIdeaIA = true;
-		symbole = -2;
-		for (int i = 0; i <= 2; i++)
-		{
-			if (noIdeaIA)
+			// Bot // Rand
+			/*if (false)
 			{
-				for (int i = 0; i < n; i++)// Chercher si uncoup lui permet de Win
+				while (true)
 				{
-					if (tab[i] == symbole && tab[i + 1] == symbole && tab[i + 2] == 0) // si troue a droite
+					choice = Generator(8);
+					if (tab[choice] == 0)
 					{
-						tab[i + 2] = -2;
-						noIdeaIA = false;
-						std::cout << "IA vertical manque i+2" << symbole << std::endl;
-						break;
-					}
-
-					else if (tab[i + 1] == symbole && tab[i + 2] == symbole && tab[i] == 0) // si troue a gauche
-					{
-						tab[i] = -2; // faire un autre for pour lui
-						noIdeaIA = false;
-						std::cout << "IA vertical manque i" << symbole << std::endl; // probleme
-						break;
-					}
-					else if (tab[i] == symbole && tab[i + 2] == symbole && tab[i + 1] == 0 ) // si troue au milieux
-					{
-						tab[i + 1] = -2;
-						noIdeaIA = false;
-						std::cout << "IA vertical manque i+1" << std::endl;
-						break;
-					}
-
-					// haut bas
-					else if (tab[i] == symbole && tab[i + n] == symbole && tab[i + n + n] == 0)
-					{
-						tab[i + n + n] = -2;
-						noIdeaIA = false;
-						std::cout << "IA horizontal manque i+n+n" << std::endl;
-						break;
-					}
-					else if (tab[i] == symbole && tab[i + n + n] == symbole && tab[i + n] == 0)
-					{
-						tab[i + n] = -2;
-						noIdeaIA = false;
-						std::cout << "IA horizontal manque i+n" << std::endl;
-						break;
-					}
-					else if (tab[i + n] == symbole && tab[i + n + n] == symbole && tab[i] == 0)
-					{
-						tab[i] = -2;
-						noIdeaIA = false;
-						std::cout << "IA horizontal manque i " << std::endl;
+						tab[choice] = -2;
 						break;
 					}
 				}
-			}
-			symbole = -1;// contrer adversaire 
-		}
+			}*/
 
-		if (noIdeaIA) // si l'ia na pas d'idée de quoi jouer alors il choisit rand
-		{
-			while (true)
+			//IA // inteligente (comme les premier IA pour les echeque
+			noIdeaIA = true;
+			symbole = -2;
+			for (int i = 0; i <= 2; i++)
 			{
-				choice = Generator(sizeTab);
-				std::cout << choice << std::endl;
-				if (tab[choice] == 0)
+				if (noIdeaIA)
 				{
-					std::cout << "Rand " << std::endl;
+					for (int i = 0; i < n2; i++)// Chercher si uncoup lui permet de Win
+					{
+						if (tab[i] == symbole && tab[i + 1] == symbole && tab[i + 2] == 0) // si troue a droite
+						{
+							tab[i + 2] = -2;
+							noIdeaIA = false;
+							//std::cout << "IA vertical manque i+2" << symbole << std::endl;
+							break;
+						}
 
-					tab[choice] = -2;
-					break;
+						else if (tab[i + 1] == symbole && tab[i + 2] == symbole && tab[i] == 0) // si troue a gauche
+						{
+							tab[i] = -2; // faire un autre for pour lui
+							noIdeaIA = false;
+							//std::cout << "IA vertical manque i" << symbole << std::endl; // probleme
+							break;
+						}
+						else if (tab[i] == symbole && tab[i + 2] == symbole && tab[i + 1] == 0) // si troue au milieux
+						{
+							tab[i + 1] = -2;
+							noIdeaIA = false;
+							//std::cout << "IA vertical manque i+1" << std::endl;
+							break;
+						}
+
+						// haut bas
+						else if (tab[i] == symbole && tab[i + n] == symbole && tab[i + n + n] == 0)
+						{
+							tab[i + n + n] = -2;
+							noIdeaIA = false;
+							//std::cout << "IA horizontal manque i+n+n" << std::endl;
+							break;
+						}
+						else if (tab[i] == symbole && tab[i + n + n] == symbole && tab[i + n] == 0)
+						{
+							tab[i + n] = -2;
+							noIdeaIA = false;
+							//std::cout << "IA horizontal manque i+n" << std::endl;
+							break;
+						}
+						else if (tab[i + n] == symbole && tab[i + n + n] == symbole && tab[i] == 0)
+						{
+							tab[i] = -2;
+							noIdeaIA = false;
+							//std::cout << "IA horizontal manque i " << std::endl;
+							break;
+						}
+					}
+				}
+				symbole = -1;// contrer adversaire 
+			}
+
+			if (noIdeaIA) // si l'ia na pas d'idée de quoi jouer alors il choisit rand 
+			{
+				while (true)
+				{
+					choice = Generator(n2*n2);
+					//std::cout << choice << std::endl;
+					if (tab[choice] == 0)
+					{
+						//std::cout << "Rand " << std::endl;
+						tab[choice] = -2;
+						break;
+					}
 				}
 			}
+
+
+
+			// teste si victoire bot
+			end = ChekWin(tab, -2, n2);
+
+
+			if (end == -2)
+			{
+				break;
+			}
 		}
-
-
-
-		// victoire bot
-		end = ChekWin(tab, -2, n);
-
-		
-		 if (end == -2)
+		if (end == -1)
 		{
-			std::cout << "Machine a gagner" << std::endl;
-			PrintCell(tab, n, sizeTab);
+			std::cout << "Joueur a gagner" << std::endl;
+			PrintCell(tab, n2);
 			break;
 		}
-
+		if (end == -2)
+		{
+			std::cout << "Machine a gagner" << std::endl;
+			PrintCell(tab, n2);
+			break;
+		}
 	}
-}/**/
+}
+
+/**/
 
 
 int main()
