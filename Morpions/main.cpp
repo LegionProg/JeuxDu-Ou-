@@ -7,7 +7,8 @@ int Choice(int min, int max)
 	while (true)
 	{
 		choice = _getch();
-		std::cout << choice << std::endl;
+		std::cout << choice << std::endl; // debug
+		choice = choice - 48;
 		//std::cin >> choice;
 		if (choice >= min && choice <= max)
 			break;
