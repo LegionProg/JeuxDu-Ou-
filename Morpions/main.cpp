@@ -1,53 +1,36 @@
 #include <iostream>
 #include <conio.h>
 
-int Choice(int min, int max)
-{
-	int choice = 0;
-	while (true)
-	{
-		choice = _getch();
-		std::cout << choice << std::endl; // debug
-		choice = choice - 48;
-		//std::cin >> choice;
-		if (choice >= min && choice <= max)
-			break;
-		std::cout << "Vous avez mal saisie recommencer et cette fois si correctement !!!" << std::endl;
-	}
-	
 
-	return choice;
-}
 int Generator(int max)
 {
 	return rand() % (max + 1);
 }
+
+
 
 int ChekWin(int tab[], int symbole, int n2)
 {
 	for (int i = 0; i < n2; i++)
 	{
 		int index = i * n2;
-		/*if (tab[index] != symbole)
-		{
-			break;
-		}*/
+
 		if (tab[index] == tab[index + 1] && tab[index] == tab[index + 2] && tab[index] != 0 && tab[0 * n2 + 1] == tab[index + 2]) // verticale
 			return symbole;
-		if (tab[i] == tab[i + n2] && tab[i] == tab[i + n2 + n2] && tab[i] != 0) // horisontal
+		if (tab[i] == tab[i + n2] && tab[i] == tab[i + n2 + n2] && tab[i] == tab[i+n2+n2+n2] && tab[i]!=0) // horisontal
 			return symbole;
-		if (tab[i] == tab[i + n2 + 1] && tab[i] == tab[i + n2 + 1 + n2 + 1] && tab[i] != 0) // diagonal gauche droite
+		if (tab[i] == tab[i + n2 + 1] && tab[i] == tab[i + n2 + 1 + n2 + 1] && tab[i]== tab[i + n2 + 1 + n2 + 1+n2+1] && tab[i] != 0) // diagonal gauche droite
 			return symbole;
-		if (tab[i + n2] == tab[i + n2 + n2 - 1] && tab[i] == tab[i + n2 + n2 - 1 + n2 - 1] && tab[i] != 0) // diagonal droite gauche
+		if (tab[i + n2-1] == tab[i + n2-1 + n2-1 - 1] && tab[i] == tab[i + n2-1 + n2-1 - 1 + n2-1 - 1] && tab[i] == symbole) // diagonal droite gauche
 			return symbole;
-		
+
 	}
-	for(int i = 0; i <n2*n2; i++)
+	for (int i = 0; i < n2 * n2; i++)
 	{
 		if (tab[i] == 0)
 			return 5;
 	}
-		return 1;
+	return 1;
 }
 
 
@@ -55,22 +38,17 @@ int ChekWin(int tab[], int symbole, int n2)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-void PrintCell(int tab[], int n2 )
+void PrintCell(int tab[], int n2, int posX, int posY)
 {
 	int a = n2 - 1;
+	int b = 0;
 	int tailleTab = n2 * n2;
+	for (int i = 0; i < posX; i++)
+	{
+		std::cout << "         ";
+	}
+	std::cout << "    |"<< std::endl;
+
 	for (int i = 0; i < tailleTab; i++)
 	{
 		std::cout << " [ ";
@@ -83,13 +61,73 @@ void PrintCell(int tab[], int n2 )
 			std::cout << " O ";
 
 		std::cout << " ] ";
+		
 		if (i == a)
 		{
+			if (posY == b)
+			{
+				std::cout << " <- ";
+			}
+			b++;
 			a = a + n2;
 			std::cout << std::endl;
 		}
+		
 	}
+}
 
+
+
+int Choice(int min, int max, int tab[])
+{
+	int choice = 0;
+	int posX = 0;
+	int posY = 0;
+	while (true)
+	{
+		system("cls");
+		PrintCell(tab, max, posX, posY);
+
+		choice = _getch();
+
+		//std::cout << choice << std::endl; // debug 
+
+		if (choice == 75) // fleche gauche
+		{
+			if (posX == min)
+				std::cout << " Vous ne pouvez pas allez a gauche" << std::endl;
+			else
+				posX--;
+		}
+		else if (choice == 77) //77 fleche droite
+		{
+			if (posX == max-1)
+				std::cout << " vous ne pouvez pas allez plus a droite " << std::endl;
+			else
+				posX++;
+		}
+		else if (choice == 80) // 80 fleche bas
+		{
+			if (posY == max-1)
+				std::cout << " vous ne pouvez pas allez plus a bas " << std::endl;
+			else
+				posY++;
+		}
+		else if (choice == 72) // 72 fleche haute
+		{
+			if (posY == min)
+				std::cout << " vous ne pouvez pas allez plus a haut " << std::endl;
+			else
+				posY--;
+		}
+		else if (choice == 13)// 13 = entrée 
+		{
+			posX = posX + (3 * (posY));
+			return posX;
+		}
+
+	}
+	return choice;
 }
 
 void Morpions_Cours()
@@ -104,12 +142,12 @@ void Morpions_Cours()
 	const int n = 20;
 	for (int i = 0; i < n; i++)
 	{
-		std::cout << "agrandire le tableau car egaliter valeur de i" << i << std::endl;
+		
 		int n2 = 3 + i;// pour
 
 		const int sizeTab = n * n;
 		int tab[sizeTab]; // {0}
-		int tabChoice[2]{ 0 };
+	
 
 		for (int i = 0; i < sizeTab; i++)
 		{
@@ -121,9 +159,7 @@ void Morpions_Cours()
 
 			int a = 2;
 
-			system("cls");
-			PrintCell(tab, n2);
-
+			
 			std::cout << "Choisit une case" << std::endl;
 
 			std::cout << std::endl;
@@ -131,23 +167,9 @@ void Morpions_Cours()
 
 			while (true)
 			{
-				std::cout << "Joueur 1 a vous de jouer choisiser Y" << std::endl;
-				tabChoice[0] = Choice(1, n2) - 1; // Y
-				std::cout << "Joueur 1 a vous de jouer choisiser X" << std::endl;
-				tabChoice[1] = Choice(1, n2) - 1; // X
 
-				for (int a = 0; a < n2; a++)
-				{
-					for (int i = 0; i < n2; i++)
-					{
-						if (tabChoice[0] == a)
-							if (tabChoice[1] == i)
-							{
-								choice = i + (a * n2); // problème
-								break;
-							}
-					}
-				}
+				choice = Choice(0, n2,tab);
+				tab[choice] - 1;
 
 
 				if (tab[choice] == 0)
@@ -167,40 +189,6 @@ void Morpions_Cours()
 			else if (end == 1)
 				break;
 
-			/*system("cls");
-			PrintCell(tab, n2);*/
-
-			// IA / Bot / Joueur 2
-
-			//Joueur 2
-			if (numberPlayer == 2)
-			{
-				std::cout << "Joueur 2 a vous de jouer " << std::endl;
-				while (true)
-				{
-					int choice = Choice(1, n2) - 1;
-					if (tab[choice] == 0)
-					{
-						tab[choice] = -2;
-						break;
-					}
-					std::cout << "La case et deja prise" << std::endl;
-				}
-			}
-
-			// Bot // Rand
-			/*if (false)
-			{
-				while (true)
-				{
-					choice = Generator(8);
-					if (tab[choice] == 0)
-					{
-						tab[choice] = -2;
-						break;
-					}
-				}
-			}*/
 
 			//IA // inteligente (comme les premier IA pour les echeque
 			noIdeaIA = true;
@@ -265,11 +253,9 @@ void Morpions_Cours()
 			{
 				while (true)
 				{
-					choice = Generator(n2*n2);
-					//std::cout << choice << std::endl;
+					choice = Generator(n2 * n2);
 					if (tab[choice] == 0)
 					{
-						//std::cout << "Rand " << std::endl;
 						tab[choice] = -2;
 						break;
 					}
@@ -290,16 +276,18 @@ void Morpions_Cours()
 		if (end == -1)
 		{
 			std::cout << "Joueur a gagner" << std::endl;
-			PrintCell(tab, n2);
+			PrintCell(tab, n2,0,0);
 			break;
 		}
 		if (end == -2)
 		{
 			std::cout << "Machine a gagner" << std::endl;
-			PrintCell(tab, n2);
+			PrintCell(tab, n2,0,0);
 			break;
 		}
+		std::cout << "agrandire le tableau car egaliter" << std::endl;
 	}
+	
 }
 
 /**/
